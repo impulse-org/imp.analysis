@@ -1,0 +1,26 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: IMP Static Analysis (Incubation)
+Bundle-SymbolicName: org.eclipse.imp.analysis; singleton:=true
+Bundle-Version: 0.1.82
+Bundle-Activator: org.eclipse.imp.analysis.ConstraintsPlugin
+Bundle-Vendor: rfuhrer@watson.iibm.com
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ polyglot,
+ org.eclipse.jdt.core,
+ org.eclipse.jface.text,
+ org.eclipse.ui.editors,
+ org.eclipse.ui.workbench,
+ org.eclipse.imp.runtime
+Eclipse-LazyStart: true
+Export-Package: org.eclipse.imp.analysis,
+ org.eclipse.imp.analysis.constraints,
+ org.eclipse.imp.analysis.search,
+ org.eclipse.imp.analysis.type.constraints,
+ org.eclipse.imp.analysis.type.constraints.bindings,
+ org.eclipse.imp.analysis.type.constraints.fastrep,
+ org.eclipse.imp.analysis.type.constraints.variables,
+ org.eclipse.imp.analysis.type.typesets
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
