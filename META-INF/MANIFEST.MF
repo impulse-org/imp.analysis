@@ -4,8 +4,8 @@ Bundle-Name: IMP Static Analysis (Incubation)
 Bundle-SymbolicName: org.eclipse.imp.analysis; singleton:=true
 Bundle-Version: 0.1.84
 Bundle-Activator: org.eclipse.imp.analysis.ConstraintsPlugin
+Bundle-ActivationPolicy: lazy
 Bundle-Vendor: rfuhrer@watson.iibm.com
-Bundle-Localization: plugin
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,
  polyglot,
@@ -14,7 +14,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui.editors,
  org.eclipse.ui.workbench,
  org.eclipse.imp.runtime
-Eclipse-LazyStart: true
 Export-Package: org.eclipse.imp.analysis,
  org.eclipse.imp.analysis.constraints,
  org.eclipse.imp.analysis.search,
