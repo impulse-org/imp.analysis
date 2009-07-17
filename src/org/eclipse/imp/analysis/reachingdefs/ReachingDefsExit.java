@@ -12,18 +12,21 @@
 
 package org.eclipse.imp.analysis.reachingdefs;
 
-import org.eclipse.jdt.core.dom.ASTNode;
 
 /**
  * Represents a constraint term of the form: Exit(label)
  * @author rfuhrer
  */
 public class ReachingDefsExit extends NodeLabel {
-    ReachingDefsExit(ASTNode node) {
-	super(node);
+    ReachingDefsExit(Object node) {
+        super(node);
     }
 
     public String toString() {
-	return "RD@exit[" + fNode.toString().replace('\n', ' ') + "]";
+        return "RD@exit[" + fNode.toString().replace('\n', ' ') + "]";
+    }
+
+    public boolean isComplexTerm() {
+        return false;
     }
 }

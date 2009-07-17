@@ -12,10 +12,12 @@
 
 package org.eclipse.imp.analysis.reachingdefs;
 
+import org.eclipse.imp.analysis.constraints.ConstraintTerm;
+import org.eclipse.imp.analysis.constraints.ITermProcessor;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.IVariableBinding;
 
-public class DefinitionLiteral extends ConstraintVariable {
+public class DefinitionLiteral extends ConstraintTerm {
     private IVariableBinding fVarBinding;
 
     private ASTNode fLabel;
@@ -25,47 +27,51 @@ public class DefinitionLiteral extends ConstraintVariable {
      * @param label may be null, to indicate a wildcard (definition of given var anywhere in program)
      */
     DefinitionLiteral(IVariableBinding var, ASTNode label) {
-	fVarBinding= var;
-	fLabel= label;
+        fVarBinding= var;
+        fLabel= label;
+    }
+
+    public boolean isComplexTerm() {
+        return false;
     }
 
     public void processTerms(ITermProcessor processor) {
-	processor.processTerm(this);
+        processor.processTerm(this);
     }
 
     public boolean isWildcard() {
-	return fLabel == null;
+        return fLabel == null;
     }
 
     public ASTNode getLabel() {
-	return fLabel;
+        return fLabel;
     }
 
     public IVariableBinding getVarBinding() {
-	return fVarBinding;
+        return fVarBinding;
     }
 
     public boolean matches(DefinitionLiteral other) {
-	return fVarBinding.isEqualTo(other.fVarBinding) && (fLabel == null || fLabel == other.fLabel);
+        return fVarBinding.isEqualTo(other.fVarBinding) && (fLabel == null || fLabel == other.fLabel);
     }
 
     public boolean equals(Object o) {
-	if (!(o instanceof DefinitionLiteral))
-	    return false;
-	DefinitionLiteral other= (DefinitionLiteral) o;
+        if (!(o instanceof DefinitionLiteral))
+            return false;
+        DefinitionLiteral other= (DefinitionLiteral) o;
 
-	return fVarBinding.isEqualTo(other.fVarBinding) && (fLabel == other.fLabel);
+        return fVarBinding.isEqualTo(other.fVarBinding) && (fLabel == other.fLabel);
     }
 
     public int hashCode() {
-	int result= 37;
-	result= 13 * result + fVarBinding.hashCode();
-	if (fLabel != null)
-	    result= 13 * result + fLabel.hashCode();
-	return result;
+        int result= 37;
+        result= 13 * result + fVarBinding.hashCode();
+        if (fLabel != null)
+            result= 13 * result + fLabel.hashCode();
+        return result;
     }
 
     public String toString() {
-	return "(" + fVarBinding.getName() + "," + (fLabel == null ? "?" : fLabel.toString()) + ")";
+        return "(" + fVarBinding.getName() + "," + (fLabel == null ? "?" : fLabel.toString()) + ")";
     }
 }

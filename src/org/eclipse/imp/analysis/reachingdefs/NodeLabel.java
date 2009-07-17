@@ -12,16 +12,17 @@
 
 package org.eclipse.imp.analysis.reachingdefs;
 
-import org.eclipse.jdt.core.dom.ASTNode;
+import org.eclipse.imp.analysis.constraints.ConstraintTerm;
+import org.eclipse.imp.analysis.constraints.ITermProcessor;
 
-public abstract class NodeLabel extends ConstraintVariable {
-    protected ASTNode fNode;
+public abstract class NodeLabel extends ConstraintTerm {
+    protected Object fNode;
 
-    public NodeLabel(ASTNode node) {
-	fNode= node;
+    public NodeLabel(Object node) {
+        fNode= node;
     }
 
     public void processTerms(ITermProcessor processor) {
-	processor.processTerm(this);
+        processor.processTerm(this);
     }
 }

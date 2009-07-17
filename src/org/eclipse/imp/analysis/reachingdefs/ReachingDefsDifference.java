@@ -7,36 +7,40 @@
 *
 * Contributors:
 *    Robert Fuhrer (rfuhrer@watson.ibm.com) - initial API and implementation
-
 *******************************************************************************/
 
 package org.eclipse.imp.analysis.reachingdefs;
 
+import org.eclipse.imp.analysis.constraints.ConstraintTerm;
+import org.eclipse.imp.analysis.constraints.IConstraintTerm;
+import org.eclipse.imp.analysis.constraints.IEstimateEnvironment;
+import org.eclipse.imp.analysis.constraints.ITermProcessor;
+
 public class ReachingDefsDifference extends ConstraintTerm {
-    private ConstraintTerm fLHS;
+    private IConstraintTerm fLHS;
 
-    private ConstraintTerm fRHS;
+    private IConstraintTerm fRHS;
 
-    public ReachingDefsDifference(ConstraintTerm lhs, ConstraintTerm rhs) {
-	fLHS= lhs;
-	fRHS= rhs;
+    public ReachingDefsDifference(IConstraintTerm lhs, IConstraintTerm rhs) {
+        fLHS= lhs;
+        fRHS= rhs;
     }
 
     public void processTerms(ITermProcessor processor) {
-	processor.processTerm(this);
-	fLHS.processTerms(processor);
-	fRHS.processTerms(processor);
+        processor.processTerm(this);
+        fLHS.processTerms(processor);
+        fRHS.processTerms(processor);
     }
 
     public boolean isComplexTerm() {
-	return true;
+        return true;
     }
 
     public void recomputeEstimate(IEstimateEnvironment env) {
-	env.setEstimate(this, env.getEstimate(fLHS).without(env.getEstimate(fRHS)));
+        env.setEstimate(this, ((DefinitionSet) env.getEstimate(fLHS)).without((DefinitionSet) env.getEstimate(fRHS)));
     }
 
     public String toString() {
-	return fLHS + "\\" + fRHS;
+        return fLHS + "\\" + fRHS;
     }
 }

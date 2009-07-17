@@ -12,18 +12,23 @@
 
 package org.eclipse.imp.analysis.reachingdefs;
 
-import org.eclipse.jdt.core.dom.ASTNode;
+import org.eclipse.imp.analysis.constraints.IEstimateEnvironment;
+
 
 /**
  * Represents a constraint term of the form: Entry(label)
  * @author rfuhrer
  */
 public class ReachingDefsEntry extends NodeLabel {
-    ReachingDefsEntry(ASTNode node) {
-	super(node);
+    ReachingDefsEntry(Object node) {
+        super(node);
     }
 
     public String toString() {
-	return "RD@entry[" + fNode.toString().replace('\n', ' ') + "]";
+        return "RD@entry[" + fNode.toString().replace('\n', ' ') + "]";
+    }
+
+    public boolean isComplexTerm() {
+        return false;
     }
 }
