@@ -12,272 +12,162 @@
 
 package org.eclipse.imp.analysis.type.constraints;
 
+import java.util.Collection;
+import java.util.Collections;
+
 import org.eclipse.imp.analysis.constraints.IConstraint;
+import org.eclipse.imp.analysis.type.constraints.TypeConstraintCollector.IConstraintAcceptor;
 
 import polyglot.ast.*;
 
 public class PolyglotConstraintCreator {
-    public static final IConstraint[] EMPTY_LIST= new IConstraint[0]; // Collections.emptyList();
+    public static final Collection<IConstraint> EMPTY_LIST= Collections.emptyList();
 
     protected final TypeConstraintFactory fConstrFactory;
     protected final ITypeVariableFactory fVarFactory;
+    protected IConstraintAcceptor fConstraintAcceptor;
 
     public PolyglotConstraintCreator(TypeConstraintFactory constrFactory, ITypeVariableFactory varFactory) {
+        this(constrFactory, varFactory, null);
+    }
+
+    public PolyglotConstraintCreator(TypeConstraintFactory constrFactory, ITypeVariableFactory varFactory, IConstraintAcceptor constraintAcceptor) {
         fConstrFactory= constrFactory;
         fVarFactory= varFactory;
+        fConstraintAcceptor= constraintAcceptor;
     }
 
     public ITypeVariableFactory getVariableFactory() {
         return fVarFactory;
     }
 
-    public IConstraint[] createFor(ArrayAccess node) {
-        return EMPTY_LIST;
+    public void setConstraintAcceptor(IConstraintAcceptor constraintAcceptor) {
+        fConstraintAcceptor= constraintAcceptor;
     }
 
-    public IConstraint[] createFor(ArrayAccessAssign node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(ArrayAccess node) { }
 
-    public IConstraint[] createFor(ArrayInit node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(ArrayAccessAssign node) { }
 
-    public IConstraint[] createFor(ArrayTypeNode node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(ArrayInit node) { }
 
-    public IConstraint[] createFor(Assert node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(ArrayTypeNode node) { }
 
-    public IConstraint[] createFor(Assign node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(Assert node) { }
 
-    public IConstraint[] createFor(Binary node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(Assign node) { }
 
-    public IConstraint[] createFor(Block node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(Binary node) { }
 
-    public IConstraint[] createFor(BooleanLit node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(Block node) { }
 
-    public IConstraint[] createFor(Branch node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(BooleanLit node) { }
 
-    public IConstraint[] createFor(Call node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(Branch node) { }
 
-    public IConstraint[] createFor(CanonicalTypeNode node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(Call node) { }
 
-    public IConstraint[] createFor(Case node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(CanonicalTypeNode node) { }
 
-    public IConstraint[] createFor(Cast node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(Case node) { }
 
-    public IConstraint[] createFor(Catch node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(Cast node) { }
 
-    public IConstraint[] createFor(CharLit node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(Catch node) { }
 
-    public IConstraint[] createFor(ClassBody node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(CharLit node) { }
 
-    public IConstraint[] createFor(ClassDecl node) {
-        return EMPTY_LIST;
+    public void createFor(ClassBody node) { }
 
+    public void createFor(ClassDecl node) {
         // TODO account for enums and annotations
     }
 
-    public IConstraint[] createFor(ClassLit node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(ClassLit node) { }
 
-    public IConstraint[] createFor(Conditional node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(Conditional node) { }
 
-    public IConstraint[] createFor(ConstructorCall node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(ConstructorCall node) { }
 
-    public IConstraint[] createFor(ConstructorDecl node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(ConstructorDecl node) { }
 
-    public IConstraint[] createFor(Do node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(Do node) { }
 
-    public IConstraint[] createFor(Empty node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(Empty node) { }
 
-    public IConstraint[] createFor(Eval node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(Eval node) { }
 
-    public IConstraint[] createFor(Field node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(Field node) { }
 
-    public IConstraint[] createFor(FieldAssign node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(FieldAssign node) { }
 
-    public IConstraint[] createFor(FieldDecl node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(FieldDecl node) { }
 
-    public IConstraint[] createFor(FloatLit node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(FloatLit node) { }
 
-    public IConstraint[] createFor(For node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(For node) { }
 
-    public IConstraint[] createFor(Formal node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(Formal node) { }
 
-    public IConstraint[] createFor(Id node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(Id node) { }
 
-    public IConstraint[] createFor(If node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(If node) { }
 
-    public IConstraint[] createFor(Import node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(Import node) { }
 
-    public IConstraint[] createFor(Initializer node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(Initializer node) { }
 
-    public IConstraint[] createFor(Instanceof node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(Instanceof node) { }
 
-    public IConstraint[] createFor(IntLit node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(IntLit node) { }
 
-    public IConstraint[] createFor(Labeled node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(Labeled node) { }
 
-    public IConstraint[] createFor(Local node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(Local node) { }
 
-    public IConstraint[] createFor(LocalAssign node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(LocalAssign node) { }
 
-    public IConstraint[] createFor(LocalClassDecl node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(LocalClassDecl node) { }
 
-    public IConstraint[] createFor(LocalDecl node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(LocalDecl node) { }
 
-    public IConstraint[] createFor(MethodDecl node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(MethodDecl node) { }
 
-    public IConstraint[] createFor(New node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(New node) { }
 
-    public IConstraint[] createFor(NewArray node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(NewArray node) { }
 
-    public IConstraint[] createFor(NullLit node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(NullLit node) { }
 
-    public IConstraint[] createFor(NumLit node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(NumLit node) { }
 
-    public IConstraint[] createFor(PackageNode node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(PackageNode node) { }
 
-    public IConstraint[] createFor(Prefix node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(Prefix node) { }
 
-    public IConstraint[] createFor(QualifierNode node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(QualifierNode node) { }
 
-    public IConstraint[] createFor(Return node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(Return node) { }
 
-    public IConstraint[] createFor(SourceCollection node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(SourceCollection node) { }
 
-    public IConstraint[] createFor(SourceFile node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(SourceFile node) { }
 
-    public IConstraint[] createFor(Special node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(Special node) { }
 
-    public IConstraint[] createFor(StringLit node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(StringLit node) { }
 
-    public IConstraint[] createFor(Switch node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(Switch node) { }
 
-    public IConstraint[] createFor(SwitchBlock node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(SwitchBlock node) { }
 
-    public IConstraint[] createFor(Synchronized node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(Synchronized node) { }
 
-    public IConstraint[] createFor(Throw node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(Throw node) { }
 
-    public IConstraint[] createFor(Try node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(Try node) { }
 
-    public IConstraint[] createFor(Unary node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(Unary node) { }
 
-    public IConstraint[] createFor(While node) {
-        return EMPTY_LIST;
-    }
+    public void createFor(While node) { }
 }

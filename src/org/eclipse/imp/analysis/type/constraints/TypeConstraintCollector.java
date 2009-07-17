@@ -33,22 +33,16 @@ import polyglot.visit.NodeVisitor;
  * created by the given ConstraintCreator.
  */
 public class TypeConstraintCollector implements IFileVisitor {
-    private final class ConstraintVisitor extends NodeVisitor {
-        private final List<IConstraint> fConstraints;
+    public interface IConstraintAcceptor {
+        void accept(IConstraint cons);
+    }
 
+    private final class ConstraintVisitor extends NodeVisitor {
         private final PolyglotConstraintCreator fCreator;
 
         private ConstraintVisitor(List<IConstraint> constraints, PolyglotConstraintCreator creator) {
             super();
-            fConstraints= constraints;
             fCreator= creator;
-        }
-
-        private void addAll(IConstraint[] constraints) {
-            for(int i= 0; i < constraints.length; i++) {
-                IConstraint constraint= constraints[i];
-                fConstraints.add(constraint);
-            }
         }
 
         /* (non-Javadoc)
@@ -57,123 +51,123 @@ public class TypeConstraintCollector implements IFileVisitor {
         @Override
         public NodeVisitor enter(Node n) {
             if (n instanceof ArrayAccess) {
-                addAll(fCreator.createFor((ArrayAccess) n));
+                fCreator.createFor((ArrayAccess) n);
             } else if (n instanceof ArrayAccessAssign) {
-                addAll(fCreator.createFor((ArrayAccessAssign) n));
+                fCreator.createFor((ArrayAccessAssign) n);
             } else if (n instanceof ArrayInit) {
-                addAll(fCreator.createFor((ArrayInit) n));
+                fCreator.createFor((ArrayInit) n);
             } else if (n instanceof ArrayTypeNode) {
-                addAll(fCreator.createFor((ArrayTypeNode) n));
+                fCreator.createFor((ArrayTypeNode) n);
             } else if (n instanceof Assert) {
-                addAll(fCreator.createFor((Assert) n));
+                fCreator.createFor((Assert) n);
             } else if (n instanceof Assign) {
-                addAll(fCreator.createFor((Assign) n));
+                fCreator.createFor((Assign) n);
             } else if (n instanceof Binary) {
-                addAll(fCreator.createFor((Binary) n));
+                fCreator.createFor((Binary) n);
             } else if (n instanceof Block) {
-                addAll(fCreator.createFor((Block) n));
+                fCreator.createFor((Block) n);
             } else if (n instanceof BooleanLit) {
-                addAll(fCreator.createFor((BooleanLit) n));
+                fCreator.createFor((BooleanLit) n);
             } else if (n instanceof Branch) {
-                addAll(fCreator.createFor((Branch) n));
+                fCreator.createFor((Branch) n);
             } else if (n instanceof Call) {
-                addAll(fCreator.createFor((Call) n));
+                fCreator.createFor((Call) n);
             } else if (n instanceof CanonicalTypeNode) {
-                addAll(fCreator.createFor((CanonicalTypeNode) n));
+                fCreator.createFor((CanonicalTypeNode) n);
             } else if (n instanceof Case) {
-                addAll(fCreator.createFor((Case) n));
+                fCreator.createFor((Case) n);
             } else if (n instanceof Cast) {
-                addAll(fCreator.createFor((Cast) n));
+                fCreator.createFor((Cast) n);
             } else if (n instanceof Catch) {
-                addAll(fCreator.createFor((Catch) n));
+                fCreator.createFor((Catch) n);
             } else if (n instanceof CharLit) {
-                addAll(fCreator.createFor((CharLit) n));
+                fCreator.createFor((CharLit) n);
             } else if (n instanceof ClassBody) {
-                addAll(fCreator.createFor((ClassBody) n));
+                fCreator.createFor((ClassBody) n);
             } else if (n instanceof ClassDecl) {
-                addAll(fCreator.createFor((ClassDecl) n));
+                fCreator.createFor((ClassDecl) n);
             } else if (n instanceof ClassLit) {
-                addAll(fCreator.createFor((ClassLit) n));
+                fCreator.createFor((ClassLit) n);
             } else if (n instanceof Conditional) {
-                addAll(fCreator.createFor((Conditional) n));
+                fCreator.createFor((Conditional) n);
             } else if (n instanceof ConstructorCall) {
-                addAll(fCreator.createFor((ConstructorCall) n));
+                fCreator.createFor((ConstructorCall) n);
             } else if (n instanceof ConstructorDecl) {
-                addAll(fCreator.createFor((ConstructorDecl) n));
+                fCreator.createFor((ConstructorDecl) n);
             } else if (n instanceof Do) {
-                addAll(fCreator.createFor((Do) n));
+                fCreator.createFor((Do) n);
             } else if (n instanceof Empty) {
-                addAll(fCreator.createFor((Empty) n));
+                fCreator.createFor((Empty) n);
             } else if (n instanceof Eval) {
-                addAll(fCreator.createFor((Eval) n));
+                fCreator.createFor((Eval) n);
             } else if (n instanceof Field) {
-                addAll(fCreator.createFor((Field) n));
+                fCreator.createFor((Field) n);
             } else if (n instanceof FieldAssign) {
-                addAll(fCreator.createFor((FieldAssign) n));
+                fCreator.createFor((FieldAssign) n);
             } else if (n instanceof FieldDecl) {
-                addAll(fCreator.createFor((FieldDecl) n));
+                fCreator.createFor((FieldDecl) n);
             } else if (n instanceof FloatLit) {
-                addAll(fCreator.createFor((FloatLit) n));
+                fCreator.createFor((FloatLit) n);
             } else if (n instanceof For) {
-                addAll(fCreator.createFor((For) n));
+                fCreator.createFor((For) n);
             } else if (n instanceof Formal) {
-                addAll(fCreator.createFor((Formal) n));
+                fCreator.createFor((Formal) n);
             } else if (n instanceof If) {
-                addAll(fCreator.createFor((If) n));
+                fCreator.createFor((If) n);
             } else if (n instanceof Import) {
-                addAll(fCreator.createFor((Import) n));
+                fCreator.createFor((Import) n);
             } else if (n instanceof Initializer) {
-                addAll(fCreator.createFor((Initializer) n));
+                fCreator.createFor((Initializer) n);
             } else if (n instanceof Instanceof) {
-                addAll(fCreator.createFor((Instanceof) n));
+                fCreator.createFor((Instanceof) n);
             } else if (n instanceof IntLit) {
-                addAll(fCreator.createFor((IntLit) n));
+                fCreator.createFor((IntLit) n);
             } else if (n instanceof Labeled) {
-                addAll(fCreator.createFor((Labeled) n));
+                fCreator.createFor((Labeled) n);
             } else if (n instanceof Local) {
-                addAll(fCreator.createFor((Local) n));
+                fCreator.createFor((Local) n);
             } else if (n instanceof LocalAssign) {
-                addAll(fCreator.createFor((LocalAssign) n));
+                fCreator.createFor((LocalAssign) n);
             } else if (n instanceof LocalClassDecl) {
-                addAll(fCreator.createFor((LocalClassDecl) n));
+                fCreator.createFor((LocalClassDecl) n);
             } else if (n instanceof LocalDecl) {
-                addAll(fCreator.createFor((LocalDecl) n));
+                fCreator.createFor((LocalDecl) n);
             } else if (n instanceof MethodDecl) {
-                addAll(fCreator.createFor((MethodDecl) n));
+                fCreator.createFor((MethodDecl) n);
             } else if (n instanceof New) {
-                addAll(fCreator.createFor((New) n));
+                fCreator.createFor((New) n);
             } else if (n instanceof NewArray) {
-                addAll(fCreator.createFor((NewArray) n));
+                fCreator.createFor((NewArray) n);
             } else if (n instanceof NullLit) {
-                addAll(fCreator.createFor((NullLit) n));
+                fCreator.createFor((NullLit) n);
             } else if (n instanceof NumLit) {
-                addAll(fCreator.createFor((NumLit) n));
+                fCreator.createFor((NumLit) n);
             } else if (n instanceof PackageNode) {
-                addAll(fCreator.createFor((PackageNode) n));
+                fCreator.createFor((PackageNode) n);
             } else if (n instanceof Prefix) {
-                addAll(fCreator.createFor((Prefix) n));
+                fCreator.createFor((Prefix) n);
             } else if (n instanceof Return) {
-                addAll(fCreator.createFor((Return) n));
+                fCreator.createFor((Return) n);
             } else if (n instanceof SourceFile) {
-                addAll(fCreator.createFor((SourceFile) n));
+                fCreator.createFor((SourceFile) n);
             } else if (n instanceof Special) {
-                addAll(fCreator.createFor((Special) n));
+                fCreator.createFor((Special) n);
             } else if (n instanceof StringLit) {
-                addAll(fCreator.createFor((StringLit) n));
+                fCreator.createFor((StringLit) n);
             } else if (n instanceof Switch) {
-                addAll(fCreator.createFor((Switch) n));
+                fCreator.createFor((Switch) n);
             } else if (n instanceof SwitchBlock) {
-                addAll(fCreator.createFor((SwitchBlock) n));
+                fCreator.createFor((SwitchBlock) n);
             } else if (n instanceof Synchronized) {
-                addAll(fCreator.createFor((Synchronized) n));
+                fCreator.createFor((Synchronized) n);
             } else if (n instanceof Throw) {
-                addAll(fCreator.createFor((Throw) n));
+                fCreator.createFor((Throw) n);
             } else if (n instanceof Try) {
-                addAll(fCreator.createFor((Try) n));
+                fCreator.createFor((Try) n);
             } else if (n instanceof Unary) {
-                addAll(fCreator.createFor((Unary) n));
+                fCreator.createFor((Unary) n);
             } else if (n instanceof While) {
-                addAll(fCreator.createFor((While) n));
+                fCreator.createFor((While) n);
             }
             return this;
         }
@@ -183,8 +177,17 @@ public class TypeConstraintCollector implements IFileVisitor {
     private final List<IConstraint> fConstraints= new ArrayList<IConstraint>();
     private final PolyglotConstraintCreator fCreator;
 
+    private final IConstraintAcceptor fConstraintAcceptor= new IConstraintAcceptor() {
+        public void accept(IConstraint cons) {
+            if (cons != null) {
+                fConstraints.add(cons);
+            }
+        }
+    };
+
     public TypeConstraintCollector(PolyglotConstraintCreator creator) {
         fCreator= creator;
+        creator.setConstraintAcceptor(fConstraintAcceptor);
         fConstraintVisitor= new ConstraintVisitor(fConstraints, fCreator);
     }
 

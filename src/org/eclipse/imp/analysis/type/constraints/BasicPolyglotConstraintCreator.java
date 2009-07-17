@@ -12,556 +12,619 @@
 
 package org.eclipse.imp.analysis.type.constraints;
 
-import org.eclipse.imp.analysis.constraints.IConstraint;
+import org.eclipse.imp.analysis.type.constraints.TypeConstraintCollector.IConstraintAcceptor;
 import org.eclipse.imp.analysis.type.constraints.variables.ITypeConstraintVariable;
 
-import polyglot.ast.*;
+import polyglot.ast.ArrayAccess;
+import polyglot.ast.ArrayAccessAssign;
+import polyglot.ast.ArrayInit;
+import polyglot.ast.ArrayTypeNode;
+import polyglot.ast.Assert;
+import polyglot.ast.Assign;
+import polyglot.ast.Binary;
+import polyglot.ast.Block;
+import polyglot.ast.BooleanLit;
+import polyglot.ast.Branch;
+import polyglot.ast.Call;
+import polyglot.ast.CanonicalTypeNode;
+import polyglot.ast.Case;
+import polyglot.ast.Cast;
+import polyglot.ast.Catch;
+import polyglot.ast.CharLit;
+import polyglot.ast.ClassBody;
+import polyglot.ast.ClassDecl;
+import polyglot.ast.ClassLit;
+import polyglot.ast.Conditional;
+import polyglot.ast.ConstructorCall;
+import polyglot.ast.ConstructorDecl;
+import polyglot.ast.Do;
+import polyglot.ast.Empty;
+import polyglot.ast.Eval;
+import polyglot.ast.Expr;
+import polyglot.ast.Field;
+import polyglot.ast.FieldAssign;
+import polyglot.ast.FieldDecl;
+import polyglot.ast.FloatLit;
+import polyglot.ast.For;
+import polyglot.ast.Formal;
+import polyglot.ast.If;
+import polyglot.ast.Import;
+import polyglot.ast.Initializer;
+import polyglot.ast.Instanceof;
+import polyglot.ast.IntLit;
+import polyglot.ast.Labeled;
+import polyglot.ast.Local;
+import polyglot.ast.LocalAssign;
+import polyglot.ast.LocalClassDecl;
+import polyglot.ast.LocalDecl;
+import polyglot.ast.MethodDecl;
+import polyglot.ast.New;
+import polyglot.ast.NewArray;
+import polyglot.ast.NullLit;
+import polyglot.ast.NumLit;
+import polyglot.ast.PackageNode;
+import polyglot.ast.Prefix;
+import polyglot.ast.Return;
+import polyglot.ast.SourceFile;
+import polyglot.ast.Special;
+import polyglot.ast.StringLit;
+import polyglot.ast.Switch;
+import polyglot.ast.SwitchBlock;
+import polyglot.ast.Synchronized;
+import polyglot.ast.Throw;
+import polyglot.ast.Try;
+import polyglot.ast.Unary;
+import polyglot.ast.While;
 
 /**
  * @author rfuhrer@watson.ibm.com
  */
 public class BasicPolyglotConstraintCreator extends PolyglotConstraintCreator {
     public BasicPolyglotConstraintCreator(TypeConstraintFactory constrFactory, ITypeVariableFactory varFactory) {
-        super(constrFactory, varFactory);
+        this(constrFactory, varFactory, null);
+    }
+
+    public BasicPolyglotConstraintCreator(TypeConstraintFactory constrFactory, ITypeVariableFactory varFactory, IConstraintAcceptor constraintAcceptor) {
+        super(constrFactory, varFactory, constraintAcceptor);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.ArrayAccess)
      */
     @Override
-    public IConstraint[] createFor(ArrayAccess node) {
+    public void createFor(ArrayAccess node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.ArrayAccessAssign)
      */
     @Override
-    public IConstraint[] createFor(ArrayAccessAssign node) {
+    public void createFor(ArrayAccessAssign node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.ArrayInit)
      */
     @Override
-    public IConstraint[] createFor(ArrayInit node) {
+    public void createFor(ArrayInit node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.ArrayTypeNode)
      */
     @Override
-    public IConstraint[] createFor(ArrayTypeNode node) {
+    public void createFor(ArrayTypeNode node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.Assert)
      */
     @Override
-    public IConstraint[] createFor(Assert node) {
+    public void createFor(Assert node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.Assign)
      */
     @Override
-    public IConstraint[] createFor(Assign node) {
+    public void createFor(Assign node) {
         Expr lhs= node.left();
         Expr rhs= node.right();
         ITypeConstraintVariable lhsVar= fVarFactory.makeVariableForExpression(lhs);
         ITypeConstraintVariable rhsVar= fVarFactory.makeVariableForExpression(rhs);
 
-        return fConstrFactory.createSubtypeConstraint(rhsVar, lhsVar);
+        fConstraintAcceptor.accept(fConstrFactory.createSubtypeConstraint(rhsVar, lhsVar));
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.Binary)
      */
     @Override
-    public IConstraint[] createFor(Binary node) {
+    public void createFor(Binary node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.Block)
      */
     @Override
-    public IConstraint[] createFor(Block node) {
+    public void createFor(Block node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.BooleanLit)
      */
     @Override
-    public IConstraint[] createFor(BooleanLit node) {
+    public void createFor(BooleanLit node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.Branch)
      */
     @Override
-    public IConstraint[] createFor(Branch node) {
+    public void createFor(Branch node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.Call)
      */
     @Override
-    public IConstraint[] createFor(Call node) {
+    public void createFor(Call node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.CanonicalTypeNode)
      */
     @Override
-    public IConstraint[] createFor(CanonicalTypeNode node) {
+    public void createFor(CanonicalTypeNode node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.Case)
      */
     @Override
-    public IConstraint[] createFor(Case node) {
+    public void createFor(Case node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.Cast)
      */
     @Override
-    public IConstraint[] createFor(Cast node) {
+    public void createFor(Cast node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.Catch)
      */
     @Override
-    public IConstraint[] createFor(Catch node) {
+    public void createFor(Catch node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.CharLit)
      */
     @Override
-    public IConstraint[] createFor(CharLit node) {
+    public void createFor(CharLit node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.ClassBody)
      */
     @Override
-    public IConstraint[] createFor(ClassBody node) {
+    public void createFor(ClassBody node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.ClassDecl)
      */
     @Override
-    public IConstraint[] createFor(ClassDecl node) {
+    public void createFor(ClassDecl node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.ClassLit)
      */
     @Override
-    public IConstraint[] createFor(ClassLit node) {
+    public void createFor(ClassLit node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.Conditional)
      */
     @Override
-    public IConstraint[] createFor(Conditional node) {
+    public void createFor(Conditional node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.ConstructorCall)
      */
     @Override
-    public IConstraint[] createFor(ConstructorCall node) {
+    public void createFor(ConstructorCall node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.ConstructorDecl)
      */
     @Override
-    public IConstraint[] createFor(ConstructorDecl node) {
+    public void createFor(ConstructorDecl node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.Do)
      */
     @Override
-    public IConstraint[] createFor(Do node) {
+    public void createFor(Do node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.Empty)
      */
     @Override
-    public IConstraint[] createFor(Empty node) {
+    public void createFor(Empty node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.Eval)
      */
     @Override
-    public IConstraint[] createFor(Eval node) {
+    public void createFor(Eval node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.Field)
      */
     @Override
-    public IConstraint[] createFor(Field node) {
+    public void createFor(Field node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.FieldAssign)
      */
     @Override
-    public IConstraint[] createFor(FieldAssign node) {
+    public void createFor(FieldAssign node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.FieldDecl)
      */
     @Override
-    public IConstraint[] createFor(FieldDecl node) {
+    public void createFor(FieldDecl node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.FloatLit)
      */
     @Override
-    public IConstraint[] createFor(FloatLit node) {
+    public void createFor(FloatLit node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.For)
      */
     @Override
-    public IConstraint[] createFor(For node) {
+    public void createFor(For node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.Formal)
      */
     @Override
-    public IConstraint[] createFor(Formal node) {
+    public void createFor(Formal node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.If)
      */
     @Override
-    public IConstraint[] createFor(If node) {
+    public void createFor(If node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.Import)
      */
     @Override
-    public IConstraint[] createFor(Import node) {
+    public void createFor(Import node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.Initializer)
      */
     @Override
-    public IConstraint[] createFor(Initializer node) {
+    public void createFor(Initializer node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.Instanceof)
      */
     @Override
-    public IConstraint[] createFor(Instanceof node) {
+    public void createFor(Instanceof node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.IntLit)
      */
     @Override
-    public IConstraint[] createFor(IntLit node) {
+    public void createFor(IntLit node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.Labeled)
      */
     @Override
-    public IConstraint[] createFor(Labeled node) {
+    public void createFor(Labeled node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.Local)
      */
     @Override
-    public IConstraint[] createFor(Local node) {
+    public void createFor(Local node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.LocalAssign)
      */
     @Override
-    public IConstraint[] createFor(LocalAssign node) {
+    public void createFor(LocalAssign node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.LocalClassDecl)
      */
     @Override
-    public IConstraint[] createFor(LocalClassDecl node) {
+    public void createFor(LocalClassDecl node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.LocalDecl)
      */
     @Override
-    public IConstraint[] createFor(LocalDecl node) {
+    public void createFor(LocalDecl node) {
         if (node.init() != null) {
             ITypeConstraintVariable declVar= fVarFactory.makeVariableForDeclaration(node.varInstance());
             ITypeConstraintVariable initVar= fVarFactory.makeVariableForExpression(node.init());
 
-            return fConstrFactory.createSubtypeConstraint(initVar, declVar);
+            fConstraintAcceptor.accept(fConstrFactory.createSubtypeConstraint(initVar, declVar));
         }
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.MethodDecl)
      */
     @Override
-    public IConstraint[] createFor(MethodDecl node) {
+    public void createFor(MethodDecl node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.New)
      */
     @Override
-    public IConstraint[] createFor(New node) {
+    public void createFor(New node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.NewArray)
      */
     @Override
-    public IConstraint[] createFor(NewArray node) {
+    public void createFor(NewArray node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.NullLit)
      */
     @Override
-    public IConstraint[] createFor(NullLit node) {
+    public void createFor(NullLit node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.NumLit)
      */
     @Override
-    public IConstraint[] createFor(NumLit node) {
+    public void createFor(NumLit node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.PackageNode)
      */
     @Override
-    public IConstraint[] createFor(PackageNode node) {
+    public void createFor(PackageNode node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.Prefix)
      */
     @Override
-    public IConstraint[] createFor(Prefix node) {
+    public void createFor(Prefix node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.Return)
      */
     @Override
-    public IConstraint[] createFor(Return node) {
+    public void createFor(Return node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.SourceFile)
      */
     @Override
-    public IConstraint[] createFor(SourceFile node) {
+    public void createFor(SourceFile node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.Special)
      */
     @Override
-    public IConstraint[] createFor(Special node) {
+    public void createFor(Special node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.StringLit)
      */
     @Override
-    public IConstraint[] createFor(StringLit node) {
+    public void createFor(StringLit node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.Switch)
      */
     @Override
-    public IConstraint[] createFor(Switch node) {
+    public void createFor(Switch node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.SwitchBlock)
      */
     @Override
-    public IConstraint[] createFor(SwitchBlock node) {
+    public void createFor(SwitchBlock node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.Synchronized)
      */
     @Override
-    public IConstraint[] createFor(Synchronized node) {
+    public void createFor(Synchronized node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.Throw)
      */
     @Override
-    public IConstraint[] createFor(Throw node) {
+    public void createFor(Throw node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.Try)
      */
     @Override
-    public IConstraint[] createFor(Try node) {
+    public void createFor(Try node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.Unary)
      */
     @Override
-    public IConstraint[] createFor(Unary node) {
+    public void createFor(Unary node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.type.PolyglotConstraintCreator#createFor(polyglot.ast.While)
      */
     @Override
-    public IConstraint[] createFor(While node) {
+    public void createFor(While node) {
         // TODO Auto-generated method stub
-        return super.createFor(node);
+        super.createFor(node);
     }
 }

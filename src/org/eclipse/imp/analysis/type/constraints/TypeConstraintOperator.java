@@ -16,8 +16,12 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 
+import org.eclipse.imp.analysis.constraints.ConstraintSolver;
 import org.eclipse.imp.analysis.constraints.IConstraintOperator;
+import org.eclipse.imp.analysis.constraints.IEstimateEnvironment;
+import org.eclipse.imp.analysis.constraints.ISimpleConstraint;
 import org.eclipse.imp.core.Assert;
+import org.eclipse.imp.utils.UnimplementedError;
 
 /**
  * @author rfuhrer@watson.ibm.com
@@ -81,6 +85,26 @@ public class TypeConstraintOperator implements IConstraintOperator {
         return fOperatorString;
     }
 
+    public final boolean isSubtypeOperator() {
+        return fOperatorCode == CODE_SUBTYPE;
+    }
+
+    public final boolean isStrictSubtypeOperator() {
+        return fOperatorCode == CODE_STRICT_SUBTYPE;
+    }
+
+    public final boolean isEqualsOperator() {
+        return fOperatorCode == CODE_EQUALS;
+    }
+
+    public final boolean isDefinesOperator() {
+        return fOperatorCode == CODE_DEFINES;
+    }
+
+    public void satisfyConstraint(ISimpleConstraint c, IEstimateEnvironment env, ConstraintSolver solver) {
+        throw new UnsupportedOperationException("TypeConstraintOperator.satisfyConstraint() unimplemented");
+    }
+
     /*
      * (non-Javadoc)
      * 
@@ -109,21 +133,5 @@ public class TypeConstraintOperator implements IConstraintOperator {
      */
     public int hashCode() {
         return fOperatorString.hashCode();
-    }
-
-    public final boolean isSubtypeOperator() {
-        return fOperatorCode == CODE_SUBTYPE;
-    }
-
-    public final boolean isStrictSubtypeOperator() {
-        return fOperatorCode == CODE_STRICT_SUBTYPE;
-    }
-
-    public final boolean isEqualsOperator() {
-        return fOperatorCode == CODE_EQUALS;
-    }
-
-    public final boolean isDefinesOperator() {
-        return fOperatorCode == CODE_DEFINES;
     }
 }

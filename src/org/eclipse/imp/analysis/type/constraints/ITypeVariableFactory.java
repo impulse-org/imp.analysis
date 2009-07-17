@@ -13,7 +13,7 @@
 package org.eclipse.imp.analysis.type.constraints;
 
 import org.eclipse.imp.analysis.ICompilationUnitRange;
-import org.eclipse.imp.analysis.constraints.IConstraintVariableFactory;
+import org.eclipse.imp.analysis.constraints.IConstraintTermFactory;
 import org.eclipse.imp.analysis.type.constraints.variables.ArrayElementVariable;
 import org.eclipse.imp.analysis.type.constraints.variables.DeclaringTypeVariable;
 import org.eclipse.imp.analysis.type.constraints.variables.ITypeConstraintVariable;
@@ -34,7 +34,7 @@ import polyglot.types.VarInstance;
  * and to speed equality detection).
  */
 // TODO Make this interface independent of Polyglot-specific types
-public interface ITypeVariableFactory extends IConstraintVariableFactory {
+public interface ITypeVariableFactory extends IConstraintTermFactory {
     void setCompilationUnit(ICompilationUnit unit);
 
     ITypeConstraintVariable makeVariableForExpression(Expr expression);

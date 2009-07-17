@@ -48,6 +48,6 @@ public class TypeAnalyzer {
      */
     private void solveConstraints() {
         // TODO Auto-generated method stub
-        
+
     }
 }
