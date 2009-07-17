@@ -9,13 +9,14 @@ Eclipse-LazyStart: true
 Bundle-Vendor: rfuhrer@watson.iibm.com
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,
- polyglot,
- org.eclipse.jdt.core,
  org.eclipse.jface.text,
  org.eclipse.ui.editors,
  org.eclipse.ui.workbench,
- org.eclipse.imp.runtime
+ org.eclipse.imp.runtime,
+ org.eclipse.jdt.core,
+ polyglot
 Export-Package: org.eclipse.imp.analysis,
+ org.eclipse.imp.analysis.cfg,
  org.eclipse.imp.analysis.constraints,
  org.eclipse.imp.analysis.search,
  org.eclipse.imp.analysis.type.constraints,
