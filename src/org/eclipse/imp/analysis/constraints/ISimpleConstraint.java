@@ -7,18 +7,20 @@
 *
 * Contributors:
 *    Robert Fuhrer (rfuhrer@watson.ibm.com) - initial API and implementation
-
 *******************************************************************************/
 
 package org.eclipse.imp.analysis.constraints;
 
 /**
- * @author Dr. Robert M. Fuhrer
+ * Represents a simple binary constraint with a left-hand and right-hand side
+ * and a single binary operator.
+ * @see IConstraint, IConstraintOperator
+ * @author rfuhrer@watson.ibm.com
  */
 public interface ISimpleConstraint extends IConstraint {
-    public IConstraintVariable getLeft();
+    public IConstraintTerm getLeft();
 
-    public IConstraintVariable getRight();
+    public IConstraintTerm getRight();
 
     public IConstraintOperator getOperator();
 }

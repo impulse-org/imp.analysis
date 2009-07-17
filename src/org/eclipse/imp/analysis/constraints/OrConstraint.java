@@ -29,6 +29,19 @@ public class OrConstraint implements IConstraint {
         fConstraints= sort(getCopy(constraints));
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.jdt.internal.corext.refactoring.experiments.ITypeConstraint#isSimpleTypeConstraint()
+     */
+    public boolean isSimpleTypeConstraint() {
+        return false;
+    }
+
+    public IConstraint[] getConstraints() {
+        return fConstraints;
+    }
+
     private static IConstraint[] getCopy(IConstraint[] constraints) {
         List<IConstraint> l= Arrays.asList(constraints);
         return (IConstraint[]) l.toArray(new IConstraint[l.size()]);
@@ -44,13 +57,14 @@ public class OrConstraint implements IConstraint {
         return constraints;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.jdt.internal.corext.refactoring.experiments.ITypeConstraint#isSimpleTypeConstraint()
-     */
-    public boolean isSimpleTypeConstraint() {
-        return false;
+    public void processTerms(ITermProcessor processor) {
+        for(IConstraint c: fConstraints) {
+            c.processTerms(processor);
+        }
+    }
+
+    public void satisfy(IEstimateEnvironment env, ConstraintSolver solver) {
+        throw new UnsupportedOperationException("Unable to satisfy OR constraint");
     }
 
     /*
@@ -67,9 +81,5 @@ public class OrConstraint implements IConstraint {
             buff.append(constraint.toString());
         }
         return buff.toString();
-    }
-
-    public IConstraint[] getConstraints() {
-        return fConstraints;
     }
 }

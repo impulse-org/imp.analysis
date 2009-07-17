@@ -11,10 +11,14 @@
 
 package org.eclipse.imp.analysis.constraints;
 
+import org.eclipse.imp.analysis.ICompilationUnitRange;
+
 /**
  * @author rfuhrer@watson.ibm.com
- *
  */
-public interface IConstraintOperator {
-    void satisfyConstraint(ISimpleConstraint c, IEstimateEnvironment env, ConstraintSolver solver);
+public interface ISourceConstraintTerm extends IConstraintTerm {
+    /**
+     * @return the source range corresponding to the given constraint variable
+     */
+    public ICompilationUnitRange getRange();
 }

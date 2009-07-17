@@ -18,10 +18,10 @@ import org.eclipse.imp.model.ICompilationUnit;
 /**
  * @author rfuhrer@watson.ibm.com
  */
-public class SourceConstraintVariable extends ConstraintVariable implements ISourceConstraintVariable {
+public abstract class SourceConstraintTerm extends ConstraintTerm implements ISourceConstraintTerm {
     private final ICompilationUnitRange fRange;
 
-    public SourceConstraintVariable(ICompilationUnitRange range) {
+    public SourceConstraintTerm(ICompilationUnitRange range) {
         super();
         fRange= range;
     }

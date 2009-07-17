@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (c) 2007 IBM Corporation.
+* Copyright (c) 2009 IBM Corporation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -7,19 +7,12 @@
 *
 * Contributors:
 *    Robert Fuhrer (rfuhrer@watson.ibm.com) - initial API and implementation
-
 *******************************************************************************/
 
 package org.eclipse.imp.analysis.constraints;
 
-import org.eclipse.imp.analysis.ICompilationUnitRange;
+public interface IEstimateEnvironment<T extends ITermEstimate> {
+    void setEstimate(IConstraintTerm t, T newEst);
 
-/**
- * @author rfuhrer@watson.ibm.com
- */
-public interface ISourceConstraintVariable extends IConstraintVariable {
-    /**
-     * @return the source range corresponding to the given constraint variable
-     */
-    public ICompilationUnitRange getRange();
+    T getEstimate(IConstraintTerm t);
 }

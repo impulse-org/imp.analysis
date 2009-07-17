@@ -7,7 +7,6 @@
 *
 * Contributors:
 *    Robert Fuhrer (rfuhrer@watson.ibm.com) - initial API and implementation
-
 *******************************************************************************/
 
 package org.eclipse.imp.analysis.constraints;
@@ -19,9 +18,9 @@ import java.util.Map;
  * @author rfuhrer@watson.ibm.com
  */
 public class ConstraintFactory implements IConstraintFactory {
-    private Map<IConstraintVariable, Map<IConstraintVariable, Map<IConstraintOperator, IConstraint>>> fSimpleConstraints= new HashMap<IConstraintVariable,Map<IConstraintVariable,Map<IConstraintOperator,IConstraint>>>();
+    private Map<IConstraintTerm, Map<IConstraintTerm, Map<IConstraintOperator, IConstraint>>> fSimpleConstraints= new HashMap<IConstraintTerm,Map<IConstraintTerm,Map<IConstraintOperator,IConstraint>>>();
 
-    private Map<IConstraintVariable, Map<String, OrConstraint>> fOrConstraints= new HashMap<IConstraintVariable, Map<String, OrConstraint>>();
+    private Map<IConstraintTerm, Map<String, OrConstraint>> fOrConstraints= new HashMap<IConstraintTerm, Map<String, OrConstraint>>();
 
     protected static final boolean PRINT_STATS= false;
 
@@ -31,9 +30,9 @@ public class ConstraintFactory implements IConstraintFactory {
 
     protected int fNrRetrieved= 0;
 
-    private SimpleConstraint doCreateSimpleConstraint(IConstraintVariable v1, IConstraintVariable v2, IConstraintOperator operator) {
+    private ISimpleConstraint doCreateSimpleConstraint(IConstraintTerm v1, IConstraintTerm v2, IConstraintOperator operator) {
         if (fSimpleConstraints.containsKey(v1)) {
-            Map<IConstraintVariable, Map<IConstraintOperator,IConstraint>> m2= fSimpleConstraints.get(v1);
+            Map<IConstraintTerm, Map<IConstraintOperator,IConstraint>> m2= fSimpleConstraints.get(v1);
             if (m2.containsKey(v2)) {
                 Map<IConstraintOperator,IConstraint> m3= m2.get(v2);
 
@@ -42,7 +41,7 @@ public class ConstraintFactory implements IConstraintFactory {
                         fNrRetrieved++;
                     if (PRINT_STATS)
                         dumpStats();
-                    return (SimpleConstraint) m3.get(operator);
+                    return (ISimpleConstraint) m3.get(operator);
                 } else {
                     return storeConstraint(v1, v2, operator, m3);
                 }
@@ -52,7 +51,7 @@ public class ConstraintFactory implements IConstraintFactory {
                 return storeConstraint(v1, v2, operator, m3);
             }
         } else {
-            Map<IConstraintVariable,Map<IConstraintOperator,IConstraint>> m2= new HashMap<IConstraintVariable,Map<IConstraintOperator,IConstraint>>();
+            Map<IConstraintTerm,Map<IConstraintOperator,IConstraint>> m2= new HashMap<IConstraintTerm,Map<IConstraintOperator,IConstraint>>();
             fSimpleConstraints.put(v1, m2);
             Map<IConstraintOperator,IConstraint> m3= new HashMap<IConstraintOperator,IConstraint>();
             m2.put(v2, m3);
@@ -60,8 +59,8 @@ public class ConstraintFactory implements IConstraintFactory {
         }
     }
 
-    private SimpleConstraint storeConstraint(IConstraintVariable v1, IConstraintVariable v2, IConstraintOperator operator, Map<IConstraintOperator,IConstraint> m3) {
-        SimpleConstraint constraint= new SimpleConstraint(v1, v2, operator);
+    private ISimpleConstraint storeConstraint(IConstraintTerm v1, IConstraintTerm v2, IConstraintOperator operator, Map<IConstraintOperator,IConstraint> m3) {
+        ISimpleConstraint constraint= new SimpleConstraint(v1, v2, operator);
         m3.put(operator, constraint);
         if (PRINT_STATS)
             fNrCreated++;
@@ -70,17 +69,17 @@ public class ConstraintFactory implements IConstraintFactory {
         return constraint;
     }
 
-    public IConstraint[] createSimpleConstraint(IConstraintVariable v1, IConstraintVariable v2, IConstraintOperator operator) {
+    public ISimpleConstraint createSimpleConstraint(IConstraintTerm v1, IConstraintTerm v2, IConstraintOperator operator) {
         if (filterSimple(v1, v2, operator)) {
             if (PRINT_STATS)
                 fNrFiltered++;
-            return new IConstraint[0];
+            return null;
         } else {
-            return new IConstraint[] { doCreateSimpleConstraint(v1, v2, operator) };
+            return doCreateSimpleConstraint(v1, v2, operator);
         }
     }
 
-    public boolean filterSimple(IConstraintVariable v1, IConstraintVariable v2, IConstraintOperator operator) {
+    public boolean filterSimple(IConstraintTerm v1, IConstraintTerm v2, IConstraintOperator operator) {
         if (v1 == v2)
             return true;
         return false;
@@ -91,16 +90,16 @@ public class ConstraintFactory implements IConstraintFactory {
      * 
      */
     public OrConstraint createOrConstraint(IConstraint[] constraints) {
-        IConstraintVariable left= ((SimpleConstraint) constraints[0]).getLeft();
+        IConstraintTerm left= ((SimpleConstraint) constraints[0]).getLeft();
         String signature= ""; //$NON-NLS-1$
         for(int i= 0; i < constraints.length; i++) {
-            IConstraintVariable right= ((SimpleConstraint) constraints[i]).getRight();
+            IConstraintTerm right= ((SimpleConstraint) constraints[i]).getRight();
             String varName= right.toString();
             signature= signature + varName + ","; //$NON-NLS-1$
         }
 
         if (fOrConstraints.containsKey(left)) {
-            Map m2= (Map) fOrConstraints.get(left);
+            Map<String,OrConstraint> m2= fOrConstraints.get(left);
             if (m2.containsKey(signature)) {
                 if (PRINT_STATS)
                     fNrRetrieved++;
@@ -117,7 +116,7 @@ public class ConstraintFactory implements IConstraintFactory {
                 return constraint;
             }
         } else {
-            Map m2= new HashMap();
+            Map<String,OrConstraint> m2= new HashMap<String,OrConstraint>();
             fOrConstraints.put(left, m2);
             OrConstraint constraint= new OrConstraint(constraints);
             m2.put(signature, constraint);

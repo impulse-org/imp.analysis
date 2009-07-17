@@ -7,19 +7,14 @@
 *
 * Contributors:
 *    Robert Fuhrer (rfuhrer@watson.ibm.com) - initial API and implementation
-
 *******************************************************************************/
 
 package org.eclipse.imp.analysis.constraints;
 
 /**
- * 
- */
-
-/**
  * @author rfuhrer@watson.ibm.com
  *
  */
-public interface IConstraintVariableFactory {
+public interface IConstraintTermFactory {
 
 }

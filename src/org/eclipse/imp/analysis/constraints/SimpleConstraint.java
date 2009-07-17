@@ -15,9 +15,9 @@ package org.eclipse.imp.analysis.constraints;
 /**
  * @author rfuhrer@watson.ibm.com
  */
-public class SimpleConstraint implements IConstraint {
-    private final IConstraintVariable fLeft;
-    private final IConstraintVariable fRight;
+public class SimpleConstraint implements ISimpleConstraint {
+    private final IConstraintTerm fLeft;
+    private final IConstraintTerm fRight;
     private final IConstraintOperator fOperator;
 
     /**
@@ -25,7 +25,7 @@ public class SimpleConstraint implements IConstraint {
      * @param v2
      * @param operator
      */
-    public SimpleConstraint(IConstraintVariable left, IConstraintVariable right, IConstraintOperator operator) {
+    public SimpleConstraint(IConstraintTerm left, IConstraintTerm right, IConstraintOperator operator) {
         fLeft= left;
         fRight= right;
         fOperator= operator;
@@ -34,14 +34,14 @@ public class SimpleConstraint implements IConstraint {
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.constraints.IConstraint#getLeft()
      */
-    public IConstraintVariable getLeft() {
+    public IConstraintTerm getLeft() {
         return fLeft;
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.safari.java.analysis.constraints.IConstraint#getRight()
      */
-    public IConstraintVariable getRight() {
+    public IConstraintTerm getRight() {
         return fRight;
     }
 
@@ -50,6 +50,15 @@ public class SimpleConstraint implements IConstraint {
      */
     public IConstraintOperator getOperator() {
         return fOperator;
+    }
+
+    public void processTerms(ITermProcessor processor) {
+        processor.processTerm(fLeft);
+        processor.processTerm(fRight);
+    }
+
+    public void satisfy(IEstimateEnvironment env, ConstraintSolver solver) {
+        fOperator.satisfyConstraint(this, env, solver);
     }
 
     public String toString() {

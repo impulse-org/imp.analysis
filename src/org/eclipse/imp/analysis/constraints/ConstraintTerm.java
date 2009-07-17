@@ -7,7 +7,6 @@
 *
 * Contributors:
 *    Robert Fuhrer (rfuhrer@watson.ibm.com) - initial API and implementation
-
 *******************************************************************************/
 
 package org.eclipse.imp.analysis.constraints;
@@ -15,12 +14,19 @@ package org.eclipse.imp.analysis.constraints;
 /**
  * @author rfuhrer@watson.ibm.com
  */
-public class ConstraintVariable implements IConstraintVariable {
+public abstract class ConstraintTerm implements IConstraintTerm {
     private Object[] fDatas;
 
-    public ConstraintVariable() {
+    public ConstraintTerm() {
         super();
     }
+
+    /*
+     * This override is for convenience, to avoid forcing an empty override on the many
+     * kinds of constraint terms that have no sub-structure.
+     * @see org.eclipse.imp.analysis.constraints.IConstraintTerm#recomputeEstimate(org.eclipse.imp.analysis.constraints.IEstimateEnvironment)
+     */
+    public void recomputeEstimate(IEstimateEnvironment env) { }
 
     /*
      * (non-Javadoc)
@@ -82,4 +88,6 @@ public class ConstraintVariable implements IConstraintVariable {
             }
         }
     }
+
+    public abstract String toString(); // Force implementation in derived classes
 }
