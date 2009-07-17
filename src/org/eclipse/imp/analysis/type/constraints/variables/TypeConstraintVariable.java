@@ -13,14 +13,15 @@
 package org.eclipse.imp.analysis.type.constraints.variables;
 
 import org.eclipse.imp.analysis.ICompilationUnitRange;
-import org.eclipse.imp.analysis.constraints.SourceConstraintVariable;
+import org.eclipse.imp.analysis.constraints.ITermProcessor;
+import org.eclipse.imp.analysis.constraints.SourceConstraintTerm;
 import org.eclipse.imp.analysis.type.constraints.bindings.BindingKeyFactory.BindingKey;
 import org.eclipse.imp.analysis.type.constraints.fastrep.TType;
 
 /**
  * @author rfuhrer@watson.ibm.com
  */
-public class TypeConstraintVariable extends SourceConstraintVariable implements ITypeConstraintVariable {
+public class TypeConstraintVariable extends SourceConstraintTerm implements ITypeConstraintVariable {
     private final BindingKey fBindingKey;
 
     private final TType fDeclaredType;
@@ -47,5 +48,16 @@ public class TypeConstraintVariable extends SourceConstraintVariable implements 
      */
     public TType getDeclaredType() {
         return fDeclaredType;
+    }
+
+    public boolean isComplexTerm() {
+        return false;
+    }
+
+    public void processTerms(ITermProcessor processor) { }
+
+    @Override
+    public String toString() {
+        return fBindingKey.toString();
     }
 }

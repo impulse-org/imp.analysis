@@ -17,7 +17,7 @@ import java.util.Map;
 
 import org.eclipse.imp.analysis.ICompilationUnitRange;
 import org.eclipse.imp.analysis.PolyglotUtils;
-import org.eclipse.imp.analysis.constraints.IConstraintVariable;
+import org.eclipse.imp.analysis.constraints.IConstraintTerm;
 import org.eclipse.imp.analysis.type.constraints.ITypeVariableFactory;
 import org.eclipse.imp.analysis.type.constraints.bindings.BindingKeyFactory;
 import org.eclipse.imp.analysis.type.constraints.bindings.BindingKeyFactory.BindingKey;
@@ -55,7 +55,7 @@ public class TypeVariableFactory implements ITypeVariableFactory {
 
     private final Map<BindingKey,ReturnTypeVariable> fReturnVariableMap= new HashMap<BindingKey,ReturnTypeVariable>();
 
-    private final Map<IConstraintVariable,IConstraintVariable> fArrayElementMap= new HashMap<IConstraintVariable,IConstraintVariable>();
+    private final Map<IConstraintTerm,IConstraintTerm> fArrayElementMap= new HashMap<IConstraintTerm,IConstraintTerm>();
 
     protected int nrCreated= 0;
 

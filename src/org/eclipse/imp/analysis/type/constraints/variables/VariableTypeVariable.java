@@ -13,6 +13,7 @@
 package org.eclipse.imp.analysis.type.constraints.variables;
 
 import org.eclipse.imp.analysis.ICompilationUnitRange;
+import org.eclipse.imp.analysis.constraints.ITermProcessor;
 import org.eclipse.imp.analysis.type.constraints.bindings.BindingKeyFactory.BindingKey;
 import org.eclipse.imp.analysis.type.constraints.fastrep.TType;
 
@@ -23,5 +24,17 @@ import org.eclipse.imp.analysis.type.constraints.fastrep.TType;
 public class VariableTypeVariable extends TypeConstraintVariable {
     public VariableTypeVariable(BindingKey key, TType declaredType, ICompilationUnitRange range) {
         super(key, declaredType, range);
+    }
+
+    public boolean isComplexTerm() {
+        return false;
+    }
+
+    public void processTerms(ITermProcessor processor) { }
+
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

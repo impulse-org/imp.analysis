@@ -12,6 +12,7 @@
 
 package org.eclipse.imp.analysis.type.constraints.variables;
 
+import org.eclipse.imp.analysis.constraints.ITermProcessor;
 import org.eclipse.imp.analysis.type.constraints.bindings.BindingKeyFactory.BindingKey;
 import org.eclipse.imp.analysis.type.constraints.fastrep.TType;
 
@@ -19,6 +20,12 @@ public class ImmutableTypeVariable extends TypeConstraintVariable {
     public ImmutableTypeVariable(BindingKey key, TType type) {
         super(key, type);
     }
+
+    public boolean isComplexTerm() {
+        return false;
+    }
+
+    public void processTerms(ITermProcessor processor) { }
 
     /*
      * @see java.lang.Object#hashCode()

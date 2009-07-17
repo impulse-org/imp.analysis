@@ -13,6 +13,7 @@
 package org.eclipse.imp.analysis.type.constraints.variables;
 
 import org.eclipse.imp.analysis.ICompilationUnitRange;
+import org.eclipse.imp.analysis.constraints.ITermProcessor;
 import org.eclipse.imp.analysis.type.constraints.fastrep.TType;
 
 /**
@@ -36,6 +37,14 @@ public class ArrayElementVariable extends TypeConstraintVariable {
      */
     public ITypeConstraintVariable getParent() {
         return fParent;
+    }
+
+    public boolean isComplexTerm() {
+        return true;
+    }
+
+    public void processTerms(ITermProcessor processor) {
+        processor.processTerm(fParent);
     }
 
     public String toString() {

@@ -12,13 +12,13 @@
 
 package org.eclipse.imp.analysis.type.constraints.variables;
 
-import org.eclipse.imp.analysis.constraints.IConstraintVariable;
+import org.eclipse.imp.analysis.constraints.IConstraintTerm;
 import org.eclipse.imp.analysis.type.constraints.bindings.BindingKeyFactory.BindingKey;
 
 /**
  * Interface representing an arbitrary constraint variable in a type constraint.
  */
-public interface ITypeConstraintVariable extends IConstraintVariable {
+public interface ITypeConstraintVariable extends IConstraintTerm {
     /**
      * @return the unique bindingKey
      */

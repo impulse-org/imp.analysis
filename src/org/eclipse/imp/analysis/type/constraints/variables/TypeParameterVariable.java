@@ -13,6 +13,7 @@
 package org.eclipse.imp.analysis.type.constraints.variables;
 
 import org.eclipse.imp.analysis.ICompilationUnitRange;
+import org.eclipse.imp.analysis.constraints.ITermProcessor;
 import org.eclipse.imp.analysis.type.constraints.bindings.ITypeBinding;
 import org.eclipse.imp.analysis.type.constraints.bindings.BindingKeyFactory.BindingKey;
 
@@ -54,6 +55,26 @@ public class TypeParameterVariable extends TypeConstraintVariable {
         return parentCv.getBindingKey();
     }
 
+    public boolean isComplexTerm() {
+        return true;
+    }
+
+    public void processTerms(ITermProcessor processor) {
+        processor.processTerm(fParentCv);
+    }
+
+    public int getDeclarationTypeVariableIndex() {
+        if (true)
+            throw new IllegalStateException("Unfinished implementation: TypeParameterVariable");
+        return fDeclarationTypeVariableIndex;
+    }
+
+    public TypeConstraintVariable getParentConstraintVariable() {
+        if (true)
+            throw new IllegalStateException("Unfinished implementation: TypeParameterVariable");
+        return fParentCv;
+    }
+
     /*
      * @see java.lang.Object#hashCode()
      */
@@ -76,18 +97,6 @@ public class TypeParameterVariable extends TypeConstraintVariable {
 
         TypeParameterVariable other2= (TypeParameterVariable) other;
         return fParentCv == other2.fParentCv && fTypeParameterKey.equals(other2.fTypeParameterKey);
-    }
-
-    public int getDeclarationTypeVariableIndex() {
-        if (true)
-            throw new IllegalStateException("Unfinished implementation: TypeParameterVariable");
-        return fDeclarationTypeVariableIndex;
-    }
-
-    public TypeConstraintVariable getParentConstraintVariable() {
-        if (true)
-            throw new IllegalStateException("Unfinished implementation: TypeParameterVariable");
-        return fParentCv;
     }
 
     public String toString() {

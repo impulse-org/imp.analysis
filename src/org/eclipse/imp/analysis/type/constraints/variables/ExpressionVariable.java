@@ -13,6 +13,7 @@
 package org.eclipse.imp.analysis.type.constraints.variables;
 
 import org.eclipse.imp.analysis.ICompilationUnitRange;
+import org.eclipse.imp.analysis.constraints.ITermProcessor;
 import org.eclipse.imp.analysis.type.constraints.fastrep.TType;
 
 import polyglot.ast.Expr;
@@ -29,6 +30,12 @@ public class ExpressionVariable extends TypeConstraintVariable {
     public ExpressionVariable(Expr expr, TType declaredType, ICompilationUnitRange range) {
         super(null, declaredType, range);
     }
+
+    public boolean isComplexTerm() {
+        return false;
+    }
+
+    public void processTerms(ITermProcessor processor) { }
 
     public String toString() {
         return getSource();

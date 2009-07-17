@@ -13,6 +13,7 @@
 package org.eclipse.imp.analysis.type.constraints.variables;
 
 import org.eclipse.imp.analysis.ICompilationUnitRange;
+import org.eclipse.imp.analysis.constraints.ITermProcessor;
 import org.eclipse.imp.analysis.type.constraints.bindings.BindingKeyFactory;
 import org.eclipse.imp.analysis.type.constraints.bindings.BindingKeyFactory.BindingKey;
 import org.eclipse.imp.analysis.type.constraints.fastrep.TType;
@@ -34,6 +35,12 @@ public class ReturnTypeVariable extends TypeConstraintVariable {
     public BindingKey getMethodKey() {
         return fMethodKey;
     }
+
+    public boolean isComplexTerm() {
+        return false;
+    }
+
+    public void processTerms(ITermProcessor processor) { }
 
     /*
      * (non-Javadoc)
