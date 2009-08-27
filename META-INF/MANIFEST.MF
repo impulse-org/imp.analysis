@@ -2,11 +2,11 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: IMP Static Analysis (Incubation)
 Bundle-SymbolicName: org.eclipse.imp.analysis; singleton:=true
-Bundle-Version: 0.1.84
+Bundle-Version: 0.1.85
 Bundle-Activator: org.eclipse.imp.analysis.ConstraintsPlugin
 Bundle-ActivationPolicy: lazy
 Eclipse-LazyStart: true
-Bundle-Vendor: rfuhrer@watson.iibm.com
+Bundle-Vendor: rfuhrer@watson.ibm.com
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,
  org.eclipse.jface.text,
